@@ -68,9 +68,14 @@ The overall test bias is +6.3 bikes/hour, which suggests the model is unbiased. 
 
 ## Limitations & next steps
 
-*Real limitations you found, and concretely how you'd address each one with
-more time or data — not generic hedging.*
+- Rush hours are under-predicted. On working days the model misses by −133 bikes/hour at hour 8 and −103 at hour 17, which is the costly direction for the operator. A linear model adds effects together, so it can't make the peak bigger in good weather. Next step: add hour × weather interactions or try gradient boosting.
+
+
+- Night hours are over-predicted. At hours 0-5 on working days, the model predicts about 50-60 bikes too many (actual mean 5-42), and about 0.5% of predictions were negative before I clipped them. Next step: model the log of demand or use a Poisson regression, which can't go negative.
+
+
+- Weather inputs are observed, not forecast. The model uses the actual temperature and weather of the hour it predicts, but a real stocking decision would only have a forecast, so real errors would be larger. Next step: train and test with forecast data.
 
 ## Generative AI use disclosure
 
-*Per the syllabus AI Policy: what you used and how, or "no AI content used."*
+I used Claude to build code, especially the feature engineering, applying the models, and for the GRadio dashboard. Also, I used it to explain concepts that I wasnt familiar with and explain results that I got from the models. 
